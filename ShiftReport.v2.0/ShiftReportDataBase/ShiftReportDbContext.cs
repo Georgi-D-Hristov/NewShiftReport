@@ -31,6 +31,8 @@
             {
                 optionsBuilder.UseSqlServer(Config.ConnectionString);
             }
+
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
