@@ -6,7 +6,7 @@
     {
         public Engineer()
         {
-            TakeCases = new List<Case>();
+            TakenCases = new List<Case>();
         }
 
         [Key]
@@ -15,6 +15,6 @@
         [Required]
         public string Name { get; init; }
 
-        public ICollection<Case> TakeCases { get; set; }
+        public ICollection<Case> TakenCases { get; set; }
     }
 }

@@ -10,5 +10,7 @@
         public string Name { get; init; }
         [Required]
         public TestEquipmetType Type { get; init; }
+
+        public int TestEquipmentTypeId { get; set; }
     }
 }
