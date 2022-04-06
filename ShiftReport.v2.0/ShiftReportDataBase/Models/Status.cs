@@ -15,8 +15,6 @@
         [Required]
         public string Discription { get; init; }
 
-        public int CaseId { get; set; }
-
         public ICollection<Case> Cases { get; set; }
     }
 }

@@ -5,7 +5,7 @@
 
     public class ShiftReportDbContext : DbContext
     {
-      
+
 
         public DbSet<Case> Cases { get; init; }
 
@@ -32,9 +32,9 @@
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TestEquipment>()
-                .HasOne(te=>te.Type)
-                .WithMany(tt=>tt.TestEquipments)
-                .HasForeignKey(te=>te.TestEquipmentTypeId)
+                .HasOne(te => te.Type)
+                .WithMany(tt => tt.TestEquipments)
+                .HasForeignKey(te => te.TestEquipmentTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Case>()
@@ -43,10 +43,19 @@
                 .HasForeignKey(c => c.StatusId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Case>()
-                .HasMany(c => c.UsedSpareParts)
-                .WithOne(sp => sp.Case)
-                .HasForeignKey(c => c.CaseId)
+            modelBuilder.Entity<CaseUsedSparePart>()
+                .HasKey(cp => new { cp.CaseId, cp.SparePartId });
+
+            modelBuilder.Entity<CaseUsedSparePart>()
+                .HasOne(csp => csp.Case)
+                .WithMany(c => c.UsedSpareParts)
+                .HasForeignKey(csp => csp.CaseId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CaseUsedSparePart>()
+                .HasOne(csp => csp.SparePart)
+                .WithMany(sp => sp.CasesWithUsedParts)
+                .HasForeignKey(csp => csp.SparePartId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Engineer>()
