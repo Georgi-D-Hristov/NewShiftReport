@@ -5,10 +5,10 @@
     public class Case
     {
 
-        public Case()
-        {
-            UsedSpareParts = new HashSet<CaseUsedSparePart>();
-        }
+        //public Case()
+        //{
+        //    UsedSpareParts = new HashSet<CaseUsedSparePart>();
+        //}
 
         [Key]
         public int Id { get; init; }
@@ -42,7 +42,7 @@
         public int StatusId { get; init; }
         public Status Status { get; init; }
 
-        public ICollection<CaseUsedSparePart> UsedSpareParts { get; init; }
+       // public ICollection<CaseUsedSparePart> UsedSpareParts { get; init; }
 
         public string Notes { get; init; }
     }

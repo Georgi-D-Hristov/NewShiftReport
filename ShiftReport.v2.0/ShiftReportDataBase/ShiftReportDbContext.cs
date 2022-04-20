@@ -19,6 +19,8 @@
 
         public DbSet<TestEquipmetType> TestEquipmetTypes { get; init; }
 
+        public DbSet<SparePartsLocation> SparePartsLocations { get; init; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -43,25 +45,22 @@
                 .HasForeignKey(c => c.StatusId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<CaseUsedSparePart>()
-                .HasKey(cp => new { cp.CaseId, cp.SparePartId });
-
-            modelBuilder.Entity<CaseUsedSparePart>()
-                .HasOne(csp => csp.Case)
-                .WithMany(c => c.UsedSpareParts)
-                .HasForeignKey(csp => csp.CaseId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<CaseUsedSparePart>()
-                .HasOne(csp => csp.SparePart)
-                .WithMany(sp => sp.CasesWithUsedParts)
-                .HasForeignKey(csp => csp.SparePartId)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<SparePart>()
+                 .HasOne(sp => sp.TestEquipment)
+                 .WithMany(te => te.SpareParts)
+                 .HasForeignKey(sp => sp.TestEquipmentId)
+                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Engineer>()
                 .HasMany(e => e.TakenCases)
                 .WithOne(c => c.Engineer)
                 .HasForeignKey(c => c.EngineerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SparePartsLocation>()
+                .HasMany(spl => spl.SpareParts)
+                .WithOne(sp => sp.Location)
+                .HasForeignKey(sp => sp.LocationId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
