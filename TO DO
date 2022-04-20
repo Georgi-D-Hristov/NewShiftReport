@@ -1,2 +1,4 @@
 Database anotations
 Seed profect that will take data from SharePoint or from exported Excel table.
+Client wants to change the DB. The spare parts should be related to Test equipment not to Service case.
+One idea for old data. Maybe is good way to export the excel table to json and after that deserialize the json to DB objects.
